@@ -4,8 +4,7 @@
   "description": "Plank GOD",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d lib",
-    "package": "npm run build && ./package.sh"
+    "build": "babel src -d lib"
   },
   "author": "Tomas Kislan",
   "license": "ISC",
