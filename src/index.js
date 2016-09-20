@@ -161,12 +161,21 @@ function startPlankTimer(cb) {
 Promise.all(loadedPromises).then(() => {
   console.log(`All sounds loaded in ${new Date().getTime() - loadingStartTime} ms`);
   console.log(sounds);
-  startCountdown(startPlankTimer);
+  // startCountdown(startPlankTimer);
   // startPlankTimer();
   // soundPlayer.addSound([sounds[50], sounds.seconds]);
   // soundPlayer.addSound([...countdownFiles.slice(5).map((file) => sounds[file]), sounds.go]);
 });
 
+
+// console.log(React);
+
+ReactDOM.render(
+  <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+    <i className="material-icons">add</i>
+  </button>,
+  document.getElementById('root')
+);
 
 // setTimeout(() => {
 //   console.log(sounds);
