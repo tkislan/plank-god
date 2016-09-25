@@ -1,48 +1,8 @@
-console.log('Plank God');
+let currentLanguage = null;
 
-class SoundPlayer {
-  constructor() {
-    this.soundQueue = [];
-    this.playing = false;
+const store = Redux.createStore(reducer);
 
-    this.startLoop();
-  }
-
-  startLoop = () => {
-    if (this.soundQueue.length === 0 || this.playing === true) return;
-
-    this.timerId = setInterval(() => {
-      const sound = this.soundQueue.shift();
-
-      if (!sound) {
-        this.stopLoop();
-        return;
-      }
-
-      this.stopLoop();
-      this.playing = true;
-      sound.play();
-
-      sound.onended = () => {
-        sound.onended = null;
-        this.playing = false;
-        this.startLoop();
-      };
-    }, 50);
-  };
-
-  stopLoop = () => {
-    clearInterval(this.timerId);
-    this.timerId = null;
-  };
-
-  addSound = (sound) => {
-    if (Array.isArray(sound)) this.soundQueue = [...this.soundQueue, ...sound];
-    else this.soundQueue = [...this.soundQueue, sound];
-
-    if (!this.timerId) this.startLoop();
-  };
-}
+// const plankService = new PlankService(store.dispatch);
 
 const soundPlayer = new SoundPlayer();
 
@@ -159,14 +119,30 @@ function startPlankTimer(cb) {
 }
 
 Promise.all(loadedPromises).then(() => {
-  console.log(`All sounds loaded in ${new Date().getTime() - loadingStartTime} ms`);
-  console.log(sounds);
-  startCountdown(startPlankTimer);
+  // console.log(`All sounds loaded in ${new Date().getTime() - loadingStartTime} ms`);
+  // console.log(sounds);
+  // startCountdown(startPlankTimer);
   // startPlankTimer();
   // soundPlayer.addSound([sounds[50], sounds.seconds]);
   // soundPlayer.addSound([...countdownFiles.slice(5).map((file) => sounds[file]), sounds.go]);
 });
 
+
+// console.log(React);
+
+// ReactDOM.render(
+//   <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+//     <i className="material-icons">add</i>
+//   </button>,
+//   document.getElementById('root')
+// );
+
+ReactDOM.render(
+  <ReactRedux.Provider store={store}>
+    <PlankGod />
+  </ReactRedux.Provider>,
+  document.getElementById('root')
+);
 
 // setTimeout(() => {
 //   console.log(sounds);

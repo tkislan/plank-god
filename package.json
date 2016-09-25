@@ -4,7 +4,11 @@
   "description": "Plank GOD",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d lib"
+    "clean": "rm -rf dist/",
+    "build-styles": "node-sass styles/* -o dist/css",
+    "build-js": "babel src -d dist/js",
+    "build": "npm run clean && npm run build-js && npm run build-styles",
+    "watch": "trap 'kill %1' SIGINT && node-sass -w styles/* -o dist/css & babel -w src -d dist/js"
   },
   "author": "Tomas Kislan",
   "license": "ISC",
@@ -12,6 +16,8 @@
     "babel-cli": "^6.14.0",
     "babel-polyfill": "^6.13.0",
     "babel-preset-es2015": "^6.14.0",
-    "babel-preset-stage-2": "^6.13.0"
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-2": "^6.13.0",
+    "node-sass": "^3.10.0"
   }
 }
