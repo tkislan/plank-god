@@ -3,18 +3,11 @@
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var reducer = function () {
-  // const initialState = {
-  //   loading: true,
-  //   running: false,
-  //   countdown: 0,
-  //   plankTime: 0,
-  // };
-
   var initialState = {
-    loading: false,
-    running: true,
+    loading: true,
+    running: false,
     countdown: 0,
-    plankTime: 10
+    plankTime: 0
   };
 
   return function () {
