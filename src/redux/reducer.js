@@ -1,16 +1,9 @@
 const reducer = (() => {
-  // const initialState = {
-  //   loading: true,
-  //   running: false,
-  //   countdown: 0,
-  //   plankTime: 0,
-  // };
-
   const initialState = {
-    loading: false,
-    running: true,
+    loading: true,
+    running: false,
     countdown: 0,
-    plankTime: 10,
+    plankTime: 0,
   };
 
   return (state = initialState, action) => {
