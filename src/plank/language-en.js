@@ -43,6 +43,7 @@ class LanguageEn {
 
       const loadedPromise = new Promise((resolve) => {
         sound.oncanplaythrough = () => resolve();
+        sound.load();
       });
 
       loadedPromises.push(loadedPromise);
