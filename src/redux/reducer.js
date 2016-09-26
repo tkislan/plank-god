@@ -1,15 +1,30 @@
 const reducer = (() => {
   const initialState = {
     loading: true,
+    nextPlankTime: parseInt(localStorage.getItem('nextPlankTime')) || 90,
+    // nextPlankTime: 90,
     running: false,
     countdown: 0,
     plankTime: 0,
   };
 
+  // const initialState = {
+  //   loading: false,
+  //   nextPlankTime: 90,
+  //   running: true,
+  //   countdown: 0,
+  //   plankTime: 90,
+  // };
+
   return (state = initialState, action) => {
     switch (action.type) {
       case LANGUAGES_LOADED:
         return { ...state, loading: false };
+      case ALTER_NEXT_PLANK_TIME: {
+        const time = Math.max(10, state.nextPlankTime + action.time);
+        localStorage.setItem('nextPlankTime', time);
+        return { ...state, nextPlankTime: time };
+      }
       case START_PLANK: {
         if (state.running === true) {
           console.warn('Plank already running');
@@ -17,7 +32,7 @@ const reducer = (() => {
         } else {
           console.log('Starting plank');
 
-          return { ...state, running: true, countdown: 10, plankTime: action.time };
+          return { ...state, running: true, countdown: 5, plankTime: state.nextPlankTime };
         }
       }
       case DECREASE_COUNTDOWN_TIMER: {
@@ -39,8 +54,6 @@ const reducer = (() => {
           countdown: initialState.countdown,
           plankTime: initialState.plankTime
         };
-      case ALTER_PLANK_TIMER:
-        return { ...state, plankTime: Math.max(0, state.plankTime + action.time) };
       default:
         return state;
     }

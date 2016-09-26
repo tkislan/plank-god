@@ -10,16 +10,16 @@ class PlankGodComponent extends React.Component {
     const loadingStartTime = new Date().getTime();
     this.langEn.load().then(() => {
       console.log(`All sounds loaded in ${new Date().getTime() - loadingStartTime} ms`);
-      setTimeout(this.props.languagesLoaded, 1000);
-      // this.props.languagesLoaded();
+      // setTimeout(this.props.languagesLoaded, 1000);
+      this.props.languagesLoaded();
     });
   }
 
-  handleStartButtonClick = () => {
+  handleStart = () => {
     this.props.startPlank();
 
     this.countdownTimerId = setInterval(this.handleCountdownTick, 1000);
-    soundPlayer.addSound(this.lang.sayCountdown(10));
+    soundPlayer.addSound(this.lang.sayCountdown(5));
   };
 
   handleCountdownTick = () => {
@@ -60,14 +60,10 @@ class PlankGodComponent extends React.Component {
     }
 
     if (running !== true) {
+      const { nextPlankTime } = this.props;
       return (
         <div className="plank-god mdl-card mdl-shadow--2dp">
-          <button
-            className="start-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-            onClick={this.handleStartButtonClick}
-          >
-            Start Planking
-          </button>
+          <StartSettings nextPlankTime={nextPlankTime} onAlterNextPlankTime={this.props.alterNextPlankTime} onStart={this.handleStart} />
         </div>
       );
     } else {
@@ -76,13 +72,13 @@ class PlankGodComponent extends React.Component {
       if (countdown > 0) {
         return (
           <div className="plank-god mdl-card mdl-shadow--2dp">
-            <Countdown time={countdown} />
+            <h1 className="time">{countdown}</h1>
           </div>
         );
       } else {
         return (
           <div className="plank-god mdl-card mdl-shadow--2dp">
-            <Counter plankTime={plankTime} alterPlankTimer={this.props.alterPlankTimer} />
+            <Time time={plankTime} />
           </div>
         );
       }
@@ -93,6 +89,7 @@ class PlankGodComponent extends React.Component {
 function mapStateToProps(state) {
   return {
     loading: state.loading,
+    nextPlankTime: state.nextPlankTime,
     running: state.running,
     countdown: state.countdown,
     plankTime: state.plankTime,
