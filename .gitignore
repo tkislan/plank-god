@@ -1,2 +1,7 @@
 node_modules/
 dist/
+
+
+// Sublime text files
+plank-god.sublime-project
+plank-god.sublime-workspace

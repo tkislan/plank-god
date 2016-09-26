@@ -8,7 +8,7 @@
     "build-styles": "node-sass styles/* -o dist/css",
     "build-js": "babel src -d dist/js",
     "build": "npm run clean && npm run build-js && npm run build-styles",
-    "watch": "trap 'kill %1' SIGINT && node-sass -w styles/* -o dist/css & babel -w src -d dist/js"
+    "watch": "trap 'kill %1' INT && node-sass -w styles/* -o dist/css & babel -w src -d dist/js"
   },
   "author": "Tomas Kislan",
   "license": "ISC",
