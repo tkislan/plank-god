@@ -22,11 +22,11 @@ var PlankGodComponent = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PlankGodComponent.__proto__ || Object.getPrototypeOf(PlankGodComponent)).call.apply(_ref, [this].concat(args))), _this), _this.handleStartButtonClick = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PlankGodComponent.__proto__ || Object.getPrototypeOf(PlankGodComponent)).call.apply(_ref, [this].concat(args))), _this), _this.handleStart = function () {
       _this.props.startPlank();
 
       _this.countdownTimerId = setInterval(_this.handleCountdownTick, 1000);
-      soundPlayer.addSound(_this.lang.sayCountdown(10));
+      soundPlayer.addSound(_this.lang.sayCountdown(5));
     }, _this.handleCountdownTick = function () {
       if (_this.props.countdown !== 0) {
         soundPlayer.addSound(_this.lang.sayCountdown(_this.props.countdown - 1));
@@ -65,8 +65,8 @@ var PlankGodComponent = function (_React$Component) {
       var loadingStartTime = new Date().getTime();
       this.langEn.load().then(function () {
         console.log("All sounds loaded in " + (new Date().getTime() - loadingStartTime) + " ms");
-        setTimeout(_this2.props.languagesLoaded, 1000);
-        // this.props.languagesLoaded();
+        // setTimeout(this.props.languagesLoaded, 1000);
+        _this2.props.languagesLoaded();
       });
     }
   }, {
@@ -87,17 +87,12 @@ var PlankGodComponent = function (_React$Component) {
       }
 
       if (running !== true) {
+        var nextPlankTime = this.props.nextPlankTime;
+
         return React.createElement(
           "div",
           { className: "plank-god mdl-card mdl-shadow--2dp" },
-          React.createElement(
-            "button",
-            {
-              className: "start-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored",
-              onClick: this.handleStartButtonClick
-            },
-            "Start Planking"
-          )
+          React.createElement(StartSettings, { nextPlankTime: nextPlankTime, onAlterNextPlankTime: this.props.alterNextPlankTime, onStart: this.handleStart })
         );
       } else {
         var _props2 = this.props;
@@ -109,13 +104,17 @@ var PlankGodComponent = function (_React$Component) {
           return React.createElement(
             "div",
             { className: "plank-god mdl-card mdl-shadow--2dp" },
-            React.createElement(Countdown, { time: countdown })
+            React.createElement(
+              "h1",
+              { className: "time" },
+              countdown
+            )
           );
         } else {
           return React.createElement(
             "div",
             { className: "plank-god mdl-card mdl-shadow--2dp" },
-            React.createElement(Counter, { plankTime: plankTime, alterPlankTimer: this.props.alterPlankTimer })
+            React.createElement(Time, { time: plankTime })
           );
         }
       }
@@ -128,6 +127,7 @@ var PlankGodComponent = function (_React$Component) {
 function mapStateToProps(state) {
   return {
     loading: state.loading,
+    nextPlankTime: state.nextPlankTime,
     running: state.running,
     countdown: state.countdown,
     plankTime: state.plankTime

@@ -5,10 +5,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var reducer = function () {
   var initialState = {
     loading: true,
+    nextPlankTime: parseInt(localStorage.getItem('nextPlankTime')) || 90,
+    // nextPlankTime: 90,
     running: false,
     countdown: 0,
     plankTime: 0
   };
+
+  // const initialState = {
+  //   loading: false,
+  //   nextPlankTime: 90,
+  //   running: true,
+  //   countdown: 0,
+  //   plankTime: 90,
+  // };
 
   return function () {
     var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
@@ -17,6 +27,12 @@ var reducer = function () {
     switch (action.type) {
       case LANGUAGES_LOADED:
         return _extends({}, state, { loading: false });
+      case ALTER_NEXT_PLANK_TIME:
+        {
+          var time = Math.max(10, state.nextPlankTime + action.time);
+          localStorage.setItem('nextPlankTime', time);
+          return _extends({}, state, { nextPlankTime: time });
+        }
       case START_PLANK:
         {
           if (state.running === true) {
@@ -25,7 +41,7 @@ var reducer = function () {
           } else {
             console.log('Starting plank');
 
-            return _extends({}, state, { running: true, countdown: 10, plankTime: action.time });
+            return _extends({}, state, { running: true, countdown: 5, plankTime: state.nextPlankTime });
           }
         }
       case DECREASE_COUNTDOWN_TIMER:
@@ -47,8 +63,6 @@ var reducer = function () {
           countdown: initialState.countdown,
           plankTime: initialState.plankTime
         });
-      case ALTER_PLANK_TIMER:
-        return _extends({}, state, { plankTime: Math.max(0, state.plankTime + action.time) });
       default:
         return state;
     }

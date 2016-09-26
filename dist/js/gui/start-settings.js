@@ -8,43 +8,58 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Counter = function (_React$Component) {
-  _inherits(Counter, _React$Component);
+var StartSettings = function (_React$Component) {
+  _inherits(StartSettings, _React$Component);
 
-  function Counter() {
+  function StartSettings() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, Counter);
+    _classCallCheck(this, StartSettings);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Counter.__proto__ || Object.getPrototypeOf(Counter)).call.apply(_ref, [this].concat(args))), _this), _this.handleMinusOne = function () {
-      return _this.props.alterPlankTimer(-1);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = StartSettings.__proto__ || Object.getPrototypeOf(StartSettings)).call.apply(_ref, [this].concat(args))), _this), _this.handleMinusFive = function () {
+      return _this.props.onAlterNextPlankTime(-5);
+    }, _this.handleMinusOne = function () {
+      return _this.props.onAlterNextPlankTime(-1);
     }, _this.handlePlusOne = function () {
-      return _this.props.alterPlankTimer(+1);
-    }, _this.handleMinusFive = function () {
-      return _this.props.alterPlankTimer(-5);
+      return _this.props.onAlterNextPlankTime(+1);
     }, _this.handlePlusFive = function () {
-      return _this.props.alterPlankTimer(+5);
+      return _this.props.onAlterNextPlankTime(+5);
+    }, _this.handleStartButtonClick = function () {
+      return _this.props.onStart();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(Counter, [{
+  _createClass(StartSettings, [{
     key: "render",
     value: function render() {
-      var plankTime = this.props.plankTime;
+      var nextPlankTime = this.props.nextPlankTime;
 
 
       return React.createElement(
         "div",
-        { className: "counter" },
+        { className: "start-settings" },
+        React.createElement(Time, { time: nextPlankTime }),
         React.createElement(
           "div",
-          { className: "counter-controls" },
+          { className: "next-plank-time-controls" },
+          React.createElement(
+            "div",
+            null,
+            React.createElement(
+              "button",
+              {
+                className: "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored",
+                onClick: this.handleMinusFive
+              },
+              "-5"
+            )
+          ),
           React.createElement(
             "div",
             null,
@@ -68,31 +83,6 @@ var Counter = function (_React$Component) {
               },
               "+1"
             )
-          )
-        ),
-        React.createElement(
-          "div",
-          { className: "counter-number-container" },
-          React.createElement(
-            "h1",
-            { className: "counter-number" },
-            plankTime
-          )
-        ),
-        React.createElement(
-          "div",
-          { className: "counter-controls" },
-          React.createElement(
-            "div",
-            null,
-            React.createElement(
-              "button",
-              {
-                className: "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored",
-                onClick: this.handleMinusFive
-              },
-              "-5"
-            )
           ),
           React.createElement(
             "div",
@@ -106,10 +96,18 @@ var Counter = function (_React$Component) {
               "+5"
             )
           )
+        ),
+        React.createElement(
+          "button",
+          {
+            className: "start-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored",
+            onClick: this.handleStartButtonClick
+          },
+          "Start Planking"
         )
       );
     }
   }]);
 
-  return Counter;
+  return StartSettings;
 }(React.Component);

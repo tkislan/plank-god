@@ -10,27 +10,26 @@
     display: flex;
     flex-direction: column;
     justify-content: center; }
+    #root .plank-god .time {
+      align-self: center; }
     #root .plank-god .loading-spinner {
       width: 200px;
       height: 200px;
       align-self: center; }
-    #root .plank-god .start-button {
-      width: 200px;
-      align-self: center; }
-    #root .plank-god .countdown {
-      align-self: center; }
-    #root .plank-god .counter {
-      padding: 20px;
+    #root .plank-god .start-settings {
       display: flex;
-      flex-direction: column; }
-      #root .plank-god .counter .counter-controls {
+      flex-direction: column;
+      justify-content: center; }
+      #root .plank-god .start-settings .next-plank-time {
+        align-self: center; }
+      #root .plank-god .start-settings .next-plank-time-controls {
         display: flex;
         flex-direction: row;
-        justify-content: space-between; }
-      #root .plank-god .counter .counter-number-container {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
         justify-content: center; }
-        #root .plank-god .counter .counter-number-container .counter-number {
-          align-self: center; }
+        #root .plank-god .start-settings .next-plank-time-controls > div {
+          transform: scale(0.8); }
+      #root .plank-god .start-settings .start-button {
+        width: 200px;
+        align-self: center; }
+    #root .plank-god .countdown {
+      align-self: center; }

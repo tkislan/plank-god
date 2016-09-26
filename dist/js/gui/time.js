@@ -8,28 +8,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Countdown = function (_React$Component) {
-  _inherits(Countdown, _React$Component);
+var Time = function (_React$Component) {
+  _inherits(Time, _React$Component);
 
-  function Countdown() {
-    _classCallCheck(this, Countdown);
+  function Time() {
+    _classCallCheck(this, Time);
 
-    return _possibleConstructorReturn(this, (Countdown.__proto__ || Object.getPrototypeOf(Countdown)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Time.__proto__ || Object.getPrototypeOf(Time)).apply(this, arguments));
   }
 
-  _createClass(Countdown, [{
+  _createClass(Time, [{
     key: "render",
     value: function render() {
       var time = this.props.time;
 
 
+      var minutes = Math.floor(time / 60);
+      var seconds = time % 60;
+      if (seconds < 10) seconds = "0" + seconds;
+
       return React.createElement(
         "h1",
-        { className: "countdown" },
-        time
+        { className: "time" },
+        minutes + ":" + seconds
       );
     }
   }]);
 
-  return Countdown;
+  return Time;
 }(React.Component);
