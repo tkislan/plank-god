@@ -9,42 +9,28 @@ var SoundPlayer = function SoundPlayer() {
 
   _classCallCheck(this, SoundPlayer);
 
-  this.startLoop = function () {
-    if (_this.soundQueue.length === 0 || _this.playing === true) return;
+  this.playSound = function () {
+    if (_this.playing === true || _this.soundQueue.length === 0) return;
 
-    _this.timerId = setInterval(function () {
-      var sound = _this.soundQueue.shift();
+    var sound = _this.soundQueue.shift();
 
-      if (!sound) {
-        _this.stopLoop();
-        return;
-      }
+    if (!sound) return;
 
-      _this.stopLoop();
-      _this.playing = true;
-      sound.play();
+    _this.playing = true;
 
-      sound.onended = function () {
-        sound.onended = null;
-        _this.playing = false;
-        _this.startLoop();
-      };
-    }, 50);
-  };
-
-  this.stopLoop = function () {
-    clearInterval(_this.timerId);
-    _this.timerId = null;
+    sound.play();
+    sound.onended = function () {
+      _this.playing = false;
+      _this.playSound();
+    };
   };
 
   this.addSound = function (sound) {
     if (Array.isArray(sound)) _this.soundQueue = [].concat(_toConsumableArray(_this.soundQueue), _toConsumableArray(sound));else _this.soundQueue = [].concat(_toConsumableArray(_this.soundQueue), [sound]);
 
-    if (!_this.timerId) _this.startLoop();
+    _this.playSound();
   };
 
   this.soundQueue = [];
   this.playing = false;
-
-  this.startLoop();
 };

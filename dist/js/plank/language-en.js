@@ -23,6 +23,7 @@ var LanguageEn = function LanguageEn() {
         sound.oncanplaythrough = function () {
           return resolve();
         };
+        sound.load();
       });
 
       loadedPromises.push(loadedPromise);
