@@ -14,43 +14,43 @@
     flex-direction: column;
     justify-content: center;
 
+    .time {
+      align-self: center;
+    }
+
     .loading-spinner {
       width: 200px;
       height: 200px;
       align-self: center;
     }
 
-    .start-button {
-      width: 200px;
-      align-self: center;
+    .start-settings {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .next-plank-time {
+        align-self: center;
+      }
+
+      .next-plank-time-controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        >div {
+          transform: scale(0.8);
+        }
+      }
+
+      .start-button {
+        width: 200px;
+        align-self: center;
+      }
     }
 
     .countdown {
       align-self: center;
-    }
-
-    .counter {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-
-      .counter-controls {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .counter-number-container {
-        flex-grow: 1;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .counter-number {
-          align-self: center;
-        }
-      }
     }
   }
 }
