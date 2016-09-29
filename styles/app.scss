@@ -24,6 +24,12 @@
       align-self: center;
     }
 
+    .language-settings {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
     .start-settings {
       display: flex;
       flex-direction: column;

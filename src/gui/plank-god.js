@@ -3,16 +3,24 @@ class PlankGodComponent extends React.Component {
     this.countdownTimerId = null;
     this.plankTimerId = null;
 
-    this.langEn = new LanguageEn();
-    // this.langDe = new LanguageDe();
-    this.lang = this.langEn;
+    this.langs = {
+      en: new LanguageEn(),
+      de: new LanguageDe(),
+    };
+    this.lang = this.langs.en;
 
     const loadingStartTime = new Date().getTime();
-    this.langEn.load().then(() => {
+    Promise.all([this.langs.en.load(), this.langs.de.load()]).then(() => {
       console.log(`All sounds loaded in ${new Date().getTime() - loadingStartTime} ms`);
       // setTimeout(this.props.languagesLoaded, 1000);
       this.props.languagesLoaded();
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.lang !== prevProps.lang) {
+      this.lang = this.langs[this.props.lang];
+    }
   }
 
   handleStart = () => {
@@ -47,7 +55,7 @@ class PlankGodComponent extends React.Component {
   };
 
   render() {
-    const { loading, running } = this.props;
+    const { loading, lang, running } = this.props;
 
     // console.log('PlankGodComponent render:', this.props);
 
@@ -63,6 +71,7 @@ class PlankGodComponent extends React.Component {
       const { nextPlankTime } = this.props;
       return (
         <div className="plank-god mdl-card mdl-shadow--2dp">
+          <LanguageSettings lang={lang} onSetLanguage={this.props.setLanguage} />
           <StartSettings nextPlankTime={nextPlankTime} onAlterNextPlankTime={this.props.alterNextPlankTime} onStart={this.handleStart} />
         </div>
       );
@@ -72,12 +81,14 @@ class PlankGodComponent extends React.Component {
       if (countdown > 0) {
         return (
           <div className="plank-god mdl-card mdl-shadow--2dp">
+            <LanguageSettings lang={lang} onSetLanguage={this.props.setLanguage} />
             <h1 className="time">{countdown}</h1>
           </div>
         );
       } else {
         return (
           <div className="plank-god mdl-card mdl-shadow--2dp">
+            <LanguageSettings lang={lang} onSetLanguage={this.props.setLanguage} />
             <Time time={plankTime} />
           </div>
         );
@@ -89,6 +100,7 @@ class PlankGodComponent extends React.Component {
 function mapStateToProps(state) {
   return {
     loading: state.loading,
+    lang: state.lang,
     nextPlankTime: state.nextPlankTime,
     running: state.running,
     countdown: state.countdown,
