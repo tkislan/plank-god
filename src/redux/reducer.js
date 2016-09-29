@@ -1,25 +1,20 @@
 const reducer = (() => {
   const initialState = {
     loading: true,
+    lang: localStorage.getItem('lang') || 'en',
     nextPlankTime: parseInt(localStorage.getItem('nextPlankTime')) || 90,
-    // nextPlankTime: 90,
     running: false,
     countdown: 0,
     plankTime: 0,
   };
 
-  // const initialState = {
-  //   loading: false,
-  //   nextPlankTime: 90,
-  //   running: true,
-  //   countdown: 0,
-  //   plankTime: 90,
-  // };
-
   return (state = initialState, action) => {
     switch (action.type) {
       case LANGUAGES_LOADED:
         return { ...state, loading: false };
+      case SET_LANGUAGE:
+        localStorage.setItem('lang', action.lang);
+        return { ...state, lang: action.lang };
       case ALTER_NEXT_PLANK_TIME: {
         const time = Math.max(10, state.nextPlankTime + action.time);
         localStorage.setItem('nextPlankTime', time);

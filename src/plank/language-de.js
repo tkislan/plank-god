@@ -1,4 +1,4 @@
-class LanguageEn {
+class LanguageDe {
   constructor() {
     this.files = [
       '10cnt',
@@ -28,6 +28,7 @@ class LanguageEn {
       'seconds',
       'start',
       'finish',
+      'und',
     ];
   }
 
@@ -35,7 +36,7 @@ class LanguageEn {
     const loadedPromises = [];
 
     this.sounds = this.files.reduce((prev, num) => {
-      const sound = new Audio(`data/languages/en/${num}.wav`);
+      const sound = new Audio(`data/languages/de/${num}.wav`);
 
       const loadedPromise = new Promise((resolve) => {
         sound.oncanplaythrough = () => resolve();
@@ -72,12 +73,12 @@ class LanguageEn {
             if (seconds <= 19) {
               sounds = [...sounds, this.sounds[seconds]];
             } else {
-              const mulTen = Math.floor(seconds / 10) * 10;
-              sounds = [...sounds, this.sounds[mulTen]];
               const restSec = Math.floor((seconds % 10));
               if (restSec > 0) {
-                sounds = [...sounds, this.sounds[restSec]];
+                sounds = [...sounds, this.sounds[restSec], this.sounds.und];
               }
+              const mulTen = Math.floor(seconds / 10) * 10;
+              sounds = [...sounds, this.sounds[mulTen]];
             }
             sounds = [...sounds, this.sounds.seconds];
           }
