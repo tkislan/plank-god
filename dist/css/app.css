@@ -16,6 +16,10 @@
       width: 200px;
       height: 200px;
       align-self: center; }
+    #root .plank-god .language-settings {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around; }
     #root .plank-god .start-settings {
       display: flex;
       flex-direction: column;

@@ -58,22 +58,32 @@ var PlankGodComponent = function (_React$Component) {
       this.countdownTimerId = null;
       this.plankTimerId = null;
 
-      this.langEn = new LanguageEn();
-      // this.langDe = new LanguageDe();
-      this.lang = this.langEn;
+      this.langs = {
+        en: new LanguageEn(),
+        de: new LanguageDe()
+      };
+      this.lang = this.langs.en;
 
       var loadingStartTime = new Date().getTime();
-      this.langEn.load().then(function () {
+      Promise.all([this.langs.en.load(), this.langs.de.load()]).then(function () {
         console.log("All sounds loaded in " + (new Date().getTime() - loadingStartTime) + " ms");
         // setTimeout(this.props.languagesLoaded, 1000);
         _this2.props.languagesLoaded();
       });
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.lang !== prevProps.lang) {
+        this.lang = this.langs[this.props.lang];
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _props = this.props;
       var loading = _props.loading;
+      var lang = _props.lang;
       var running = _props.running;
 
       // console.log('PlankGodComponent render:', this.props);
@@ -92,6 +102,7 @@ var PlankGodComponent = function (_React$Component) {
         return React.createElement(
           "div",
           { className: "plank-god mdl-card mdl-shadow--2dp" },
+          React.createElement(LanguageSettings, { lang: lang, onSetLanguage: this.props.setLanguage }),
           React.createElement(StartSettings, { nextPlankTime: nextPlankTime, onAlterNextPlankTime: this.props.alterNextPlankTime, onStart: this.handleStart })
         );
       } else {
@@ -104,6 +115,7 @@ var PlankGodComponent = function (_React$Component) {
           return React.createElement(
             "div",
             { className: "plank-god mdl-card mdl-shadow--2dp" },
+            React.createElement(LanguageSettings, { lang: lang, onSetLanguage: this.props.setLanguage }),
             React.createElement(
               "h1",
               { className: "time" },
@@ -114,6 +126,7 @@ var PlankGodComponent = function (_React$Component) {
           return React.createElement(
             "div",
             { className: "plank-god mdl-card mdl-shadow--2dp" },
+            React.createElement(LanguageSettings, { lang: lang, onSetLanguage: this.props.setLanguage }),
             React.createElement(Time, { time: plankTime })
           );
         }
@@ -127,6 +140,7 @@ var PlankGodComponent = function (_React$Component) {
 function mapStateToProps(state) {
   return {
     loading: state.loading,
+    lang: state.lang,
     nextPlankTime: state.nextPlankTime,
     running: state.running,
     countdown: state.countdown,

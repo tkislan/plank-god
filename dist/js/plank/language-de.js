@@ -8,16 +8,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var LanguageEn = function LanguageEn() {
+var LanguageDe = function LanguageDe() {
   var _this = this;
 
-  _classCallCheck(this, LanguageEn);
+  _classCallCheck(this, LanguageDe);
 
   this.load = function () {
     var loadedPromises = [];
 
     _this.sounds = _this.files.reduce(function (prev, num) {
-      var sound = new Audio('data/languages/en/' + num + '.wav');
+      var sound = new Audio('data/languages/de/' + num + '.wav');
 
       var loadedPromise = new Promise(function (resolve) {
         sound.oncanplaythrough = function () {
@@ -55,12 +55,12 @@ var LanguageEn = function LanguageEn() {
             if (seconds <= 19) {
               sounds = [].concat(_toConsumableArray(sounds), [_this.sounds[seconds]]);
             } else {
-              var mulTen = Math.floor(seconds / 10) * 10;
-              sounds = [].concat(_toConsumableArray(sounds), [_this.sounds[mulTen]]);
               var restSec = Math.floor(seconds % 10);
               if (restSec > 0) {
-                sounds = [].concat(_toConsumableArray(sounds), [_this.sounds[restSec]]);
+                sounds = [].concat(_toConsumableArray(sounds), [_this.sounds[restSec], _this.sounds.und]);
               }
+              var mulTen = Math.floor(seconds / 10) * 10;
+              sounds = [].concat(_toConsumableArray(sounds), [_this.sounds[mulTen]]);
             }
             sounds = [].concat(_toConsumableArray(sounds), [_this.sounds.seconds]);
           }
@@ -75,5 +75,5 @@ var LanguageEn = function LanguageEn() {
     return sounds;
   };
 
-  this.files = ['10cnt', '9cnt', '8cnt', '7cnt', '6cnt', '5cnt', '4cnt', '3cnt', '2cnt', '1cnt', 'go', 1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50, 'minute', 'minutes', 'seconds', 'start', 'finish'];
+  this.files = ['10cnt', '9cnt', '8cnt', '7cnt', '6cnt', '5cnt', '4cnt', '3cnt', '2cnt', '1cnt', 'go', 1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50, 'minute', 'minutes', 'seconds', 'start', 'finish', 'und'];
 };

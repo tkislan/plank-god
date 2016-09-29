@@ -5,20 +5,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var reducer = function () {
   var initialState = {
     loading: true,
+    lang: localStorage.getItem('lang') || 'en',
     nextPlankTime: parseInt(localStorage.getItem('nextPlankTime')) || 90,
-    // nextPlankTime: 90,
     running: false,
     countdown: 0,
     plankTime: 0
   };
-
-  // const initialState = {
-  //   loading: false,
-  //   nextPlankTime: 90,
-  //   running: true,
-  //   countdown: 0,
-  //   plankTime: 90,
-  // };
 
   return function () {
     var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
@@ -27,6 +19,9 @@ var reducer = function () {
     switch (action.type) {
       case LANGUAGES_LOADED:
         return _extends({}, state, { loading: false });
+      case SET_LANGUAGE:
+        localStorage.setItem('lang', action.lang);
+        return _extends({}, state, { lang: action.lang });
       case ALTER_NEXT_PLANK_TIME:
         {
           var time = Math.max(10, state.nextPlankTime + action.time);

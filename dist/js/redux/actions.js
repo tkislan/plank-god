@@ -1,6 +1,7 @@
 'use strict';
 
 var LANGUAGES_LOADED = 'LANGUAGES_LOADED';
+var SET_LANGUAGE = 'SET_LANGUAGE';
 var ALTER_NEXT_PLANK_TIME = 'ALTER_NEXT_PLANK_TIME';
 var START_PLANK = 'START_PLANK';
 var DECREASE_COUNTDOWN_TIMER = 'DECREASE_COUNTDOWN_TIMER';
@@ -10,6 +11,9 @@ var FINISH_PLANK = 'FINISH_PLANK';
 var actions = {
   languagesLoaded: function languagesLoaded() {
     return { type: LANGUAGES_LOADED };
+  },
+  setLanguage: function setLanguage(lang) {
+    return { type: SET_LANGUAGE, lang: lang };
   },
   alterNextPlankTime: function alterNextPlankTime(time) {
     return { type: ALTER_NEXT_PLANK_TIME, time: time };
